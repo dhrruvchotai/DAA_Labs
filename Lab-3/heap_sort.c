@@ -1,33 +1,25 @@
-#include <stdio.h>
+#include<stdio.h>
 
-void heapify(int arr[], int n)
-{
-    int maxIndex, i = 0;
-    for (i = 0; i < n; i++)
-    {
-        maxIndex = i;
-        if(arr[maxIndex] < arr[2*i+1]){
-            maxIndex = 2*i+1;
-        }
-        if(arr[maxIndex] < arr[2*i+2]){
-            maxIndex = 2*i+2;
-        }
+void heapify(int arr[] ,int size, int i){
+    int largest = i;
+    int left = 2 * i + 1;
 
-        if (maxIndex != i)
-        {
-            int temp = arr[i];
-            arr[i] = arr[maxIndex];
-            arr[maxIndex] = arr[i];
-        }
+}
+
+void heapSort(int arr[], int size){
+    for(int i = size / 2 - 1 ; i >= 0 ; i--){
+        heapify(arr,size,i);
     }
-    for(i=0;i<n;i++){
-        printf("arr[%d] is : %d\n",i,arr[i]);
+
+    for(int i = size - 1 ; i > 0 ; i--){
+        heapify(arr,i,0);
     }
 }
 
-void main()
-{
-    int arr[] = {16, 9, 18, 43, 41, 13, 9, 47, 1, 25};
-    int n = sizeof(arr) / sizeof(arr[0]), i = 0;
-    heapify(arr,n);
+void main(){
+    int arr[] = {7,3,5,7,8,3,2,5};
+    heapify(arr,0);
+    for(int i = 0;i<8;i++){
+        printf("%d ",arr[i]);
+    }
 }
