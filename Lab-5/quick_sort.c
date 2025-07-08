@@ -6,33 +6,27 @@ int pivot(int arr[], int n, int low, int high)
     int left = low + 1;
     int right = high;
 
-    do
-        left++;
-    while (left <= right && arr[left] < pivot);
-
-    do
-        right--;
-    while (right >= low && arr[right] > pivot);
-
     while (left <= right)
     {
+        while (left <= right && arr[left] < pivot)
+            left++;
+        while (left <= right && arr[right] > pivot)
+            right--;
+
         if (left < right)
         {
             int temp = arr[left];
             arr[left] = arr[right];
             arr[right] = temp;
-        }
-        do
             left++;
-        while (arr[left] < pivot);
-        do
             right--;
-        while (arr[right] > pivot);
+        }
     }
 
-    int temp = arr[right];
-    arr[right] = arr[low];
-    arr[low] = temp;
+    // Swap pivot with arr[right]
+    int temp = arr[low];
+    arr[low] = arr[right];
+    arr[right] = temp;
 
     return right;
 }
@@ -57,9 +51,8 @@ int main()
     printf("Hello\n");
     quickSort(arr, n, 0, n - 1);
     printf("Bye\n");
-    int i = 0;
 
-    for (i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
         printf("%d ", arr[i]);
     }
