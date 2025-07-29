@@ -14,7 +14,8 @@ struct Edge edges[] = {
     {0, 1, 2}, {1, 2, 1}, {2, 3, 4}, {3, 0, 10}, {1, 3, 8}, {0, 2, 5}};
 
 int parent[V];
-int mst[V - 1];
+struct Edge mst[V - 1];
+int mstIndex = 0;
 
 
 int comp(struct Edge* a, struct Edge* b)
@@ -23,10 +24,17 @@ int comp(struct Edge* a, struct Edge* b)
 }
 
 int findParent(int parent[],int index){
-    if(parent[index] == index){
-        return index;
+    //Normal Without Path Compression
+    // if(parent[index] == index){
+    //     return index;
+    // }
+    // findParent(parent,parent[index]);
+
+    //With Path Compression
+    if(parent[index] != index){
+        parent[index] = findParent(parent,parent[index]);
     }
-    findParent(parent,parent[index]);
+    return parent[index];
 }
 
 void unionSet(int ucomp, int vcomp){
@@ -52,6 +60,7 @@ void main()
         if(ucomp != vcomp){
             totalWeight += edges[i].weight;
             unionSet(ucomp,vcomp);
+            mst[mstIndex++] = edges[i];
         }
     }
 
