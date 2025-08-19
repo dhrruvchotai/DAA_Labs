@@ -65,4 +65,5 @@ void main()
     }
 
     printf("Total Weight Is : %d",totalWeight);
+
 }
